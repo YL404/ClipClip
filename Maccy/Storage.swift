@@ -16,9 +16,11 @@ class Storage {
     return ByteCountFormatter().string(fromByteCount: size)
   }
 
-  private let url = URL.applicationSupportDirectory.appending(path: "Maccy/Storage.sqlite")
+  private let url = URL.applicationSupportDirectory.appending(path: "ClipClip/Storage.sqlite")
 
   init() {
+    // Ensure the storage directory exists; otherwise ModelContainer creation fails.
+    try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
     var config = ModelConfiguration(url: url)
 
     #if DEBUG
